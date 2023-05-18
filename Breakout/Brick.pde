@@ -2,17 +2,21 @@ class Brick {
   PVector pos;
   int diameter;
   
-  float strokeWeight;
-  float strokeColour;
-  float fillColour;
+  color strokeWeight;
+  color strokeColour;
+  color fillColour;
   
-  Brick(PVector _pos, int _diameter, float _strokeWeight, float _strokeColour, float _fillColour) {
+  boolean active;
+  
+  Brick(PVector _pos, int _diameter, color _strokeWeight, color _strokeColour, color _fillColour) {
     pos = _pos;
     diameter = _diameter;
     
     strokeWeight = _strokeWeight;
     strokeColour = _strokeColour;
     fillColour = _fillColour;
+    
+    active = true;
   }
   
   void display() {

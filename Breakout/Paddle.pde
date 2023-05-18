@@ -34,7 +34,7 @@ class Paddle {
     
     if (right) {
       pos.x += moveSpeed;
-      pos.x = min(height, pos.x);
+      pos.x = min(width, pos.x);
     }
   }
   

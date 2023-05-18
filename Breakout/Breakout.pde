@@ -22,13 +22,15 @@ color DARK_BLUE = #506EE5;
 color BLUE = #68B2F8;
 
 void setup() {
-  size(800, 800);
+  size(800, 600);
   
   mode = Modes.GAME;
   
   paddle = new Paddle(new PVector(width/2, height), 80);
-  ball = new Ball(new PVector(width/2, height /2), 2, 5, 10);
+  ball = new Ball(new PVector(width/2, 450), 2, 5, 10);
   
+  brickRows = 6;
+  brickColumns = 13;
   bricks = new ArrayList<ArrayList<Brick>>();
   setupBricks();
   
@@ -53,6 +55,9 @@ void draw() {
       break;
     case OPTIONS:
       options();
+      break;
+    case LIVELOST:
+      liveLost();
       break;
     default:
       println("Error: " + mode + " is an invalid mode type");
