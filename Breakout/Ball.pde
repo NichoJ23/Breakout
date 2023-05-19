@@ -13,7 +13,7 @@ class Ball {
   
   Ball(PVector _pos, float _initialSpeed, float _speed, float _dia) {
     pos = _pos;
-    dir = new PVector(0, 1);
+    dir = new PVector(1, 100).normalize();
     speed = initialSpeed = _initialSpeed;
     startSpeed = _speed;
     speedInc = 0.2;
@@ -45,7 +45,7 @@ class Ball {
     }
     
     if (dist(pos.x, pos.y, paddle.pos.x, paddle.pos.y) < getRad() + paddle.getRad()) {
-      bounce(paddle.pos);
+      bouncePaddle(paddle.pos);
       //leftPaddleSound.play();
     }
     
@@ -54,7 +54,7 @@ class Ball {
       for (Brick b: row) {
         if (b.active)
           if (dist(pos.x, pos.y, b.pos.x, b.pos.y) < getRad() + b.getRad()) {
-            bounce(b.pos);
+            bounceBrick(b.pos);
             b.active = false;
           }
       }
@@ -75,8 +75,22 @@ class Ball {
     }
   }
   
-  void bounce(PVector otherPos) {
+  void bounceBrick(PVector otherPos) {
+    PVector normal = PVector.sub(pos, otherPos).normalize();
+    float dot = dir.x * normal.x + dir.y * normal.y;
+    dir.x -= 2 * normal.x * dot;
+    dir.y -= 2 * normal.y * dot;
+    dir.normalize();
+    
+    
+    pos.add(PVector.mult(dir, speed));
+      
+    speed += 0.1;
+  }
+  
+  void bouncePaddle(PVector otherPos) {
     dir = PVector.sub(pos, otherPos).normalize();
+    
     speed = max(speed, startSpeed);
     pos.add(PVector.mult(dir, speed));
       
@@ -86,7 +100,7 @@ class Ball {
   void reset() {
     pos = new PVector(width / 2, 450);
     speed = initialSpeed;
-    dir = new PVector(0, 1);
+    dir = new PVector(1, 100).normalize();
   }
   
   float getRad() {

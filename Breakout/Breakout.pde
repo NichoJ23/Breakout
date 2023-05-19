@@ -24,10 +24,12 @@ color BLUE = #68B2F8;
 void setup() {
   size(800, 600);
   
+  textFont(createFont("SPACE.ttf", 200));
+  
   mode = Modes.GAME;
   
   paddle = new Paddle(new PVector(width/2, height), 80);
-  ball = new Ball(new PVector(width/2, 450), 2, 5, 10);
+  ball = new Ball(new PVector(width/2, 450), 1, 3, 10);
   
   brickRows = 6;
   brickColumns = 13;
