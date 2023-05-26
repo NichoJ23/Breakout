@@ -15,6 +15,9 @@ void mousePressed() {
     case OPTIONS:
       optionsClicks();
       break;
+    case WIN:
+      winClicks();
+      break;
     default:
       println("Error: " + mode + " is an invalid mode type");
   }

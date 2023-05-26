@@ -50,14 +50,29 @@ class Ball {
     }
     
     // Make it bounce off bricks
+    boolean win = false;
     for (ArrayList<Brick> row: bricks) {
       for (Brick b: row) {
         if (b.active)
           if (dist(pos.x, pos.y, b.pos.x, b.pos.y) < getRad() + b.getRad()) {
             bounceBrick(b.pos);
             b.active = false;
+            
+            win = win || checkWin();
           }
       }
+    }
+    
+    if (win) {
+      if (level == 1) {
+        level++;
+        reset();
+        lives++;
+        setupBricks2();
+      } else {
+        mode = Modes.WIN;
+      }
+      return;
     }
     
     if (pos.y > height + getRad()) {
@@ -65,10 +80,10 @@ class Ball {
       
       if (lives <= 0) {
         mode = Modes.GAMEOVER;
-        paddle.pos.x = width/2;
       } else {
         mode = Modes.LIVELOST;
         liveLostFrame = frameCount;
+        paddle.pos.x = width/2;
         reset();
         //score.play();
       }
@@ -93,6 +108,7 @@ class Ball {
     
     speed = max(speed, startSpeed);
     pos.add(PVector.mult(dir, speed));
+    pos.x = max(getRad(), min(width - getRad(), pos.x));
       
     speed += 0.1;
   }
@@ -106,6 +122,4 @@ class Ball {
   float getRad() {
     return dia/2 + strokeWidth/2;
   }
-  
-  
 }

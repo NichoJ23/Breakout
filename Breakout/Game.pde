@@ -17,9 +17,6 @@ void game() {
 }
 
 void gameUI() {
-  fill(255);
-  noStroke();
-  
   for (int i = 0; i < lives; i++) {
     drawHeart(19 + i*25, 26);
   }
@@ -27,6 +24,9 @@ void gameUI() {
 }
 
 void drawHeart(int x, int y) {
+  fill(255);
+  noStroke();
+  
   pushMatrix();
   translate(-22 + x, -26 + y);
   

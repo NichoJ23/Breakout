@@ -17,13 +17,15 @@ void liveLost() {
     mode = Modes.GAME;
   }
   
-  scoredUI();
+  liveLostUI();
 }
 
-void scoredUI() {
-  
+void liveLostUI() {
+  for (int i = 0; i < lives; i++) {
+    drawHeart(19 + i*25, 26);
+  }
 }
 
-void scoredClicks() {
+void liveLostClicks() {
   
 }
